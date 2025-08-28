@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import MainLayout from './components/Layout/MainLayout';
 import Dashboard from './pages/Dashboard';
 import Teachers from './pages/Teachers';
+import Attendance from './pages/Attendance';
 import { COLORS, SIZES, FONTS, SHADOWS } from './constants/theme';
 
 // Mobile-friendly placeholder components
@@ -34,12 +35,7 @@ const PlaceholderPage = ({ title, description }) => (
   </div>
 );
 
-const Attendance = () => (
-  <PlaceholderPage 
-    title="Attendance Management" 
-    description="Track daily attendance for teachers and students. Features include bulk attendance marking, attendance reports, and absence notifications."
-  />
-);
+// Attendance now implemented as a full page
 
 const Allowance = () => (
   <PlaceholderPage 

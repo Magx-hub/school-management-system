@@ -165,3 +165,10 @@ OR
 git remote add origin https://github.com/Magx-hub/school-management-system.git
 git branch -M main
 git push -u origin main
+
+
+git add .
+git commit -m "Describe your update"
+git push origin master
+
+npm run deploy

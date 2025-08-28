@@ -239,6 +239,25 @@ export const getAttendanceByTeacher = async (teacherId, startDate, endDate) => {
   }
 };
 
+export const getAttendanceByDateRange = async (startDate, endDate) => {
+  try {
+    const q = query(
+      collection(db, 'attendance'),
+      where('date', '>=', startDate),
+      where('date', '<=', endDate),
+      orderBy('date', 'desc')
+    );
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+  } catch (error) {
+    console.error('Error getting attendance by date range:', error);
+    throw error;
+  }
+};
+
 export const updateAttendance = async (id, attendanceData) => {
   try {
     const docRef = doc(db, 'attendance', id);

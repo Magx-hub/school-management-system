@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiPlus, FiSearch, FiEdit, FiTrash2, FiX } from 'react-icons/fi';
 import { useTeachers } from '../hooks/useTeachers';
-import { COLORS, SIZES, FONTS, SHADOWS } from '../constants/theme';
+import { COLORS, SIZES, FONTS, SHADOWS, BREAKPOINTS } from '../constants/theme';
 import toast from 'react-hot-toast';
 
 const Teachers = () => {
@@ -9,10 +9,21 @@ const Teachers = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingTeacher, setEditingTeacher] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
   const [formData, setFormData] = useState({
     fullname: '',
     department: ''
   });
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= parseInt(BREAKPOINTS.tablet));
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const DEPARTMENTS = [
     'Creche', 'Nursery', 'Kindergarten', 'Basic 1', 'Basic 2', 'Basic 3',
@@ -79,10 +90,18 @@ const Teachers = () => {
   return (
     <div style={styles.container}>
       {/* Header */}
-      <div style={styles.header}>
+      <div style={{
+        ...styles.header,
+        flexDirection: isMobile ? 'column' : 'row',
+        gap: isMobile ? SIZES.margin : 0,
+        alignItems: isMobile ? 'stretch' : 'center',
+      }}>
         <h1 style={styles.title}>Teachers Management</h1>
         <button 
-          style={styles.addButton}
+          style={{
+            ...styles.addButton,
+            width: isMobile ? '100%' : 'auto',
+          }}
           onClick={() => setShowForm(true)}
         >
           <FiPlus size={20} />
@@ -107,7 +126,12 @@ const Teachers = () => {
       {/* Teacher Form Modal */}
       {showForm && (
         <div style={styles.modalOverlay}>
-          <div style={styles.modal}>
+          <div style={{
+            ...styles.modal,
+            width: isMobile ? '95%' : '90%',
+            maxWidth: isMobile ? '400px' : '500px',
+            margin: isMobile ? '20px' : '0',
+          }}>
             <div style={styles.modalHeader}>
               <h2 style={styles.modalTitle}>
                 {editingTeacher ? 'Edit Teacher' : 'Add New Teacher'}
@@ -145,7 +169,10 @@ const Teachers = () => {
                 </select>
               </div>
 
-              <div style={styles.formActions}>
+              <div style={{
+                ...styles.formActions,
+                flexDirection: isMobile ? 'column' : 'row',
+              }}>
                 <button type="button" style={styles.cancelButton} onClick={resetForm}>
                   Cancel
                 </button>
@@ -172,14 +199,26 @@ const Teachers = () => {
             </button>
           </div>
         ) : (
-          <div style={styles.grid}>
+          <div style={{
+            ...styles.grid,
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(300px, 1fr))',
+            gap: isMobile ? SIZES.marginSm : SIZES.margin,
+          }}>
             {teachers.map((teacher) => (
-              <div key={teacher.id} style={styles.teacherCard}>
+              <div key={teacher.id} style={{
+                ...styles.teacherCard,
+                flexDirection: isMobile ? 'column' : 'row',
+                alignItems: isMobile ? 'stretch' : 'center',
+                gap: isMobile ? SIZES.marginSm : 0,
+              }}>
                 <div style={styles.teacherInfo}>
                   <h3 style={styles.teacherName}>{teacher.fullname}</h3>
                   <p style={styles.teacherDepartment}>{teacher.department}</p>
                 </div>
-                <div style={styles.teacherActions}>
+                <div style={{
+                  ...styles.teacherActions,
+                  justifyContent: isMobile ? 'center' : 'flex-end',
+                }}>
                   <button 
                     style={styles.actionButton}
                     onClick={() => handleEdit(teacher)}
@@ -206,6 +245,7 @@ const styles = {
   container: {
     maxWidth: '1200px',
     margin: '0 auto',
+    padding: '0 16px',
   },
   header: {
     display: 'flex',
@@ -223,6 +263,7 @@ const styles = {
   addButton: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: SIZES.marginSm,
     backgroundColor: COLORS.primary,
     color: COLORS.white,
@@ -266,6 +307,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1000,
+    padding: '16px',
   },
   modal: {
     backgroundColor: COLORS.white,
@@ -374,7 +416,6 @@ const styles = {
   },
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
     gap: SIZES.margin,
   },
   teacherCard: {

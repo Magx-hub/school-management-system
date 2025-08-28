@@ -9,12 +9,23 @@ import {
   FiCoffee
 } from 'react-icons/fi';
 import { useTeachers } from '../hooks/useTeachers';
-import { COLORS, SIZES, FONTS, SHADOWS } from '../constants/theme';
+import { COLORS, SIZES, FONTS, SHADOWS, BREAKPOINTS } from '../constants/theme';
 import { format } from 'date-fns';
 
 const Dashboard = () => {
   const { stats: teacherStats } = useTeachers();
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= parseInt(BREAKPOINTS.tablet));
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -111,10 +122,14 @@ const Dashboard = () => {
       {/* Statistics Cards */}
       <div style={styles.statsContainer}>
         <h2 style={styles.sectionTitle}>Overview</h2>
-        <div style={styles.statsGrid}>
+        <div style={{
+          ...styles.statsGrid,
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
+          gap: isMobile ? SIZES.marginSm : SIZES.margin,
+        }}>
           {statsCards.map((card, index) => (
             <div key={index} style={{ ...styles.statCard, borderLeftColor: card.borderColor }}>
-              <card.icon size={28} color={card.color} />
+              <card.icon size={isMobile ? 24 : 28} color={card.color} />
               <h3 style={styles.statValue}>{card.value}</h3>
               <p style={styles.statLabel}>{card.label}</p>
               <p style={styles.statSubtext}>{card.subtext}</p>
@@ -126,11 +141,15 @@ const Dashboard = () => {
       {/* Quick Actions */}
       <div style={styles.quickActionsContainer}>
         <h2 style={styles.sectionTitle}>Quick Actions</h2>
-        <div style={styles.quickActionsGrid}>
+        <div style={{
+          ...styles.quickActionsGrid,
+          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(250px, 1fr))',
+          gap: isMobile ? SIZES.marginSm : SIZES.margin,
+        }}>
           {quickActions.map((action, index) => (
             <div key={index} style={styles.quickActionCard}>
               <div style={{ ...styles.actionIcon, backgroundColor: action.color }}>
-                <action.icon size={24} color={COLORS.white} />
+                <action.icon size={isMobile ? 20 : 24} color={COLORS.white} />
               </div>
               <h3 style={styles.actionTitle}>{action.label}</h3>
               <p style={styles.actionDescription}>{action.description}</p>
@@ -180,6 +199,7 @@ const styles = {
   container: {
     maxWidth: '1200px',
     margin: '0 auto',
+    padding: '0 16px',
   },
   welcomeSection: {
     display: 'flex',
@@ -190,6 +210,8 @@ const styles = {
     backgroundColor: COLORS.white,
     borderRadius: SIZES.borderRadiusMd,
     ...SHADOWS.small,
+    flexDirection: 'column',
+    gap: SIZES.margin,
   },
   welcomeTitle: {
     fontSize: SIZES.h2,
@@ -223,6 +245,7 @@ const styles = {
     alignItems: 'center',
     ...SHADOWS.small,
     border: `1px solid ${COLORS.border}`,
+    alignSelf: 'flex-end',
   },
   statsContainer: {
     marginBottom: SIZES.padding * 2,
@@ -236,7 +259,6 @@ const styles = {
   },
   statsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
     gap: SIZES.margin,
   },
   statCard: {
@@ -276,7 +298,6 @@ const styles = {
   },
   quickActionsGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
     gap: SIZES.margin,
   },
   quickActionCard: {
@@ -335,6 +356,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: SIZES.margin,
+    flexShrink: 0,
   },
   activityContent: {
     flex: 1,

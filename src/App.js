@@ -4,42 +4,69 @@ import { Toaster } from 'react-hot-toast';
 import MainLayout from './components/Layout/MainLayout';
 import Dashboard from './pages/Dashboard';
 import Teachers from './pages/Teachers';
-import { COLORS } from './constants/theme';
+import { COLORS, SIZES, FONTS, SHADOWS } from './constants/theme';
 
-// Placeholder components for other pages
-const Attendance = () => (
-  <div style={{ padding: '20px', textAlign: 'center' }}>
-    <h1>Attendance Management</h1>
-    <p>Coming soon...</p>
+// Mobile-friendly placeholder components
+const PlaceholderPage = ({ title, description }) => (
+  <div style={{
+    padding: SIZES.padding,
+    textAlign: 'center',
+    maxWidth: '600px',
+    margin: '0 auto',
+    backgroundColor: COLORS.white,
+    borderRadius: SIZES.borderRadiusMd,
+    ...SHADOWS.small,
+    marginTop: SIZES.padding * 2,
+  }}>
+    <h1 style={{
+      fontSize: SIZES.h2,
+      fontWeight: FONTS.bold,
+      color: COLORS.textPrimary,
+      marginBottom: SIZES.margin,
+      fontFamily: FONTS.fontFamily,
+    }}>{title}</h1>
+    <p style={{
+      fontSize: SIZES.default,
+      color: COLORS.textSecondary,
+      fontFamily: FONTS.fontFamily,
+      lineHeight: 1.6,
+    }}>{description}</p>
   </div>
+);
+
+const Attendance = () => (
+  <PlaceholderPage 
+    title="Attendance Management" 
+    description="Track daily attendance for teachers and students. Features include bulk attendance marking, attendance reports, and absence notifications."
+  />
 );
 
 const Allowance = () => (
-  <div style={{ padding: '20px', textAlign: 'center' }}>
-    <h1>Allowance Management</h1>
-    <p>Coming soon...</p>
-  </div>
+  <PlaceholderPage 
+    title="Allowance Management" 
+    description="Calculate and manage teacher allowances, overtime payments, and other financial compensations with detailed reporting."
+  />
 );
 
 const Students = () => (
-  <div style={{ padding: '20px', textAlign: 'center' }}>
-    <h1>Students Management</h1>
-    <p>Coming soon...</p>
-  </div>
+  <PlaceholderPage 
+    title="Students Management" 
+    description="Manage student records, class assignments, academic performance tracking, and parent communication."
+  />
 );
 
 const Canteen = () => (
-  <div style={{ padding: '20px', textAlign: 'center' }}>
-    <h1>Canteen Management</h1>
-    <p>Coming soon...</p>
-  </div>
+  <PlaceholderPage 
+    title="Canteen Management" 
+    description="Track canteen sales, manage inventory, handle payments, and generate sales reports for the school canteen."
+  />
 );
 
 const Settings = () => (
-  <div style={{ padding: '20px', textAlign: 'center' }}>
-    <h1>Settings</h1>
-    <p>Coming soon...</p>
-  </div>
+  <PlaceholderPage 
+    title="Settings" 
+    description="Configure system preferences, manage user accounts, customize notifications, and adjust application settings."
+  />
 );
 
 function App() {
@@ -59,13 +86,18 @@ function App() {
         </MainLayout>
         
         <Toaster
-          position="top-right"
+          position="top-center"
           toastOptions={{
             duration: 4000,
             style: {
               background: COLORS.white,
               color: COLORS.textPrimary,
               border: `1px solid ${COLORS.border}`,
+              borderRadius: '8px',
+              padding: '16px',
+              fontSize: '14px',
+              maxWidth: '90vw',
+              wordBreak: 'break-word',
             },
             success: {
               iconTheme: {

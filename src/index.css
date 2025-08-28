@@ -13,6 +13,7 @@ body {
   background-color: #f5f5f5;
   color: #263238;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 code {
@@ -25,6 +26,8 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: all 0.2s ease;
+  min-height: 44px; /* Better touch target for mobile */
+  min-width: 44px;
 }
 
 button:hover {
@@ -39,6 +42,7 @@ button:active {
 input, select, textarea {
   font-family: inherit;
   outline: none;
+  min-height: 44px; /* Better touch target for mobile */
 }
 
 input:focus, select:focus, textarea:focus {
@@ -64,6 +68,59 @@ input:focus, select:focus, textarea:focus {
   background: #a8a8a8;
 }
 
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  /* Better touch targets for mobile */
+  button, input, select, textarea {
+    min-height: 48px;
+  }
+  
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px;
+  }
+  
+  /* Improve scrolling on mobile */
+  .modal {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Better spacing for mobile */
+  .container {
+    padding: 0 16px;
+  }
+  
+  /* Improve card layouts on mobile */
+  .card {
+    margin-bottom: 16px;
+  }
+  
+  /* Better grid layouts for mobile */
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  
+  /* Improve form layouts on mobile */
+  .form-group {
+    margin-bottom: 16px;
+  }
+  
+  /* Better button layouts on mobile */
+  .button-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .button-group button {
+    width: 100%;
+  }
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .sidebar {
@@ -77,6 +134,19 @@ input:focus, select:focus, textarea:focus {
   
   .main {
     margin-left: 0 !important;
+  }
+  
+  /* Hide scrollbars on mobile for cleaner look */
+  ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 
@@ -110,3 +180,18 @@ input:focus, select:focus, textarea:focus {
 .p-3 { padding: 1rem; }
 .p-4 { padding: 1.5rem; }
 .p-5 { padding: 3rem; }
+
+/* Mobile-first responsive utilities */
+@media (max-width: 768px) {
+  .mb-1 { margin-bottom: 0.5rem; }
+  .mb-2 { margin-bottom: 1rem; }
+  .mb-3 { margin-bottom: 1.5rem; }
+  .mb-4 { margin-bottom: 2rem; }
+  .mb-5 { margin-bottom: 3rem; }
+  
+  .p-1 { padding: 0.5rem; }
+  .p-2 { padding: 1rem; }
+  .p-3 { padding: 1.5rem; }
+  .p-4 { padding: 2rem; }
+  .p-5 { padding: 3rem; }
+}

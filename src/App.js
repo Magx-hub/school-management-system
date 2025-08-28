@@ -1,10 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import MainLayout from './components/Layout/MainLayout';
 import Dashboard from './pages/Dashboard';
 import Teachers from './pages/Teachers';
 import Attendance from './pages/Attendance';
+import Calculator from './pages/Calculator';
+import Reports from './pages/Reports';
+import History from './pages/History';
+
 import { COLORS, SIZES, FONTS, SHADOWS } from './constants/theme';
 
 // Mobile-friendly placeholder components
@@ -75,9 +79,16 @@ function App() {
             <Route path="/teachers" element={<Teachers />} />
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/allowance" element={<Allowance />} />
+
+            <Route path="/calculator" element={<Calculator />} />
+            <Route path="/calculator/:id" element={<Calculator />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/history" element={<History />} />
+
             <Route path="/students" element={<Students />} />
             <Route path="/canteen" element={<Canteen />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </MainLayout>
         

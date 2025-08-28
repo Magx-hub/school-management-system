@@ -1,0 +1,216 @@
+/* Calculator.css */
+:root {
+  --primary: #4361ee;
+  --primary-light: #4895ef;
+  --secondary: #3f37c9;
+  --secondary-light: #f0f0ff;
+  --accent: #560bad;
+  --success: #4cc9f0;
+  --danger: #f72585;
+  --warning: #f8961e;
+  --info: #4895ef;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --gray-light: #f8f9fa;
+  --white: #ffffff;
+  --black: #000000;
+  --placeholder: #adb5bd;
+  --border: #dee2e6;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --border-radius: 8px;
+  --padding: 16px;
+  --padding-sm: 8px;
+  --margin: 16px;
+  --margin-sm: 8px;
+  --font-sm: 14px;
+  --font-md: 16px;
+  --font-lg: 18px;
+  --font-xl: 20px;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-container {
+  padding: var(--padding);
+  min-height: 100vh;
+  background-color: var(--gray-light);
+  font-family: var(--font-family);
+}
+
+.calculator-scroll {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  margin-bottom: var(--margin);
+  box-shadow: var(--shadow);
+}
+
+.section-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: var(--margin);
+}
+
+.input-container {
+  margin-bottom: var(--margin-sm);
+}
+
+.input-label {
+  display: block;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.text-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-md);
+  box-sizing: border-box;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+}
+
+.vertical-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin-sm);
+  margin-bottom: var(--margin);
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--font-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.button-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.button-primary:hover:not(:disabled) {
+  background-color: var(--secondary);
+}
+
+.button-secondary {
+  background-color: var(--gray);
+  color: var(--white);
+}
+
+.button-secondary:hover {
+  background-color: var(--gray-dark);
+}
+
+.full-width-button {
+  width: 100%;
+}
+
+.clear-button-top-margin {
+  margin-top: var(--margin-sm);
+}
+
+.button-icon {
+  margin-right: 12px;
+  font-size: var(--font-lg);
+}
+
+.result-section {
+  transition: opacity 0.3s ease;
+}
+
+.card {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  margin-bottom: var(--margin);
+  box-shadow: var(--shadow);
+}
+
+.result-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: var(--margin-sm);
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--border);
+  margin: var(--margin-sm) 0;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--padding-sm) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.final-row {
+  border-bottom: 2px solid var(--accent);
+  background-color: var(--secondary-light);
+  margin: 0 calc(-1 * var(--padding-sm));
+  padding: var(--padding-sm);
+  border-radius: var(--border-radius);
+}
+
+.result-label {
+  font-size: var(--font-md);
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.result-label-bold {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--accent);
+  flex: 1;
+}
+
+.result-value {
+  font-size: var(--font-md);
+  font-weight: 500;
+  color: var(--gray);
+}
+
+.final-value {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.error-message {
+  color: var(--danger);
+  padding: var(--padding-sm);
+  background-color: rgba(247, 37, 133, 0.1);
+  border-radius: var(--border-radius);
+  margin-top: var(--margin);
+}

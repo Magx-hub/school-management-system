@@ -17,7 +17,7 @@ const Sidebar = ({ isOpen, isMobile, onClose, onToggle }) => {
     { path: '/', icon: FiHome, label: 'Dashboard' },
     { path: '/teachers', icon: FiUsers, label: 'Teachers' },
     { path: '/attendance', icon: FiCalendar, label: 'Attendance' },
-    { path: '/allowance', icon: FiDollarSign, label: 'Allowance' },
+    { path: '/calculator', icon: FiDollarSign, label: 'Friday Allowance' },
     { path: '/students', icon: FiBookOpen, label: 'Students' },
     { path: '/canteen', icon: FiCoffee, label: 'Canteen' },
     { path: '/settings', icon: FiSettings, label: 'Settings' },

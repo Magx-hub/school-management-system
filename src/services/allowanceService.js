@@ -46,9 +46,9 @@ export const calculateTotalGeneralStudents = (allowanceData) => {
 // Validate allowance data
 export const validateAllowanceData = (allowanceData) => {
   const errors = [];
-  
-  if (!allowanceData.weekNumber || allowanceData.weekNumber < 1 || allowanceData.weekNumber > 16) {
-    errors.push('Week number must be between 1 and 16');
+
+  if (!allowanceData.weekNumber || allowanceData.weekNumber < 1 || allowanceData.weekNumber > 52) {
+    errors.push('Week number must be between 1 and 52');
   }
   
   if (!allowanceData.numberOfTeachers || allowanceData.numberOfTeachers < 0) {
@@ -293,9 +293,8 @@ export const deleteAllowanceRecord = async (id) => {
 export const getWelfareRecords = async (limitCount = null, lastDoc = null) => {
   try {
     let q = query(
-      allowanceCollection, 
+      allowanceCollection,
       where('welfare', '>', 0),
-      orderBy('welfare'),
       orderBy('weekNumber', 'desc')
     );
     
@@ -387,93 +386,3 @@ export default {
   generateWeeklyReport
 };
 
-// import { addAllowanceCalculation, getAllowanceCalculations } from "./firebaseService";
-
-// export const submitAllowanceCalculation = async ({ weekNumber, totalTeachers, totalWorkHours, ratePerHour, totalAllowance }) => {
-//   const payload = {
-//     weekNumber,
-//     totalTeachers,
-//     totalWorkHours,
-//     ratePerHour,
-//     totalAllowance
-//   };
-//   const id = await addAllowanceCalculation(payload);
-//   return id;
-// };
-
-// export const fetchAllowanceCalculations = async () => {
-//   const rows = await getAllowanceCalculations();
-//   return rows.map(mapRow);
-// };
-
-// const mapRow = (row) => ({
-//   id: row.id,
-//   weekNumber: row.weekNumber,
-//   totalTeachers: row.totalTeachers,
-//   totalWorkHours: row.totalWorkHours,
-//   ratePerHour: row.ratePerHour,
-//   totalAllowance: row.totalAllowance
-// });
-
-
-// // ===========================================
-// // UTILITY FUNCTIONS
-// // ===========================================
-
-// // Calculate total JHS students
-// export const calculateTotalJHSStudents = (allowanceData) => {
-//   const { basic7JHS, basic8JHS, basic9JHS } = allowanceData;
-//   return (basic7JHS || 0) + (basic8JHS || 0) + (basic9JHS || 0);
-// };
-
-// // Calculate total general students
-// export const calculateTotalGeneralStudents = (allowanceData) => {
-//   const {
-//     creche, nursery1, nursery2, kg1, kg2,
-//     basic1, basic2, basic3, basic4, basic5, basic6,
-//     basic7General, basic8General, basic9General
-//   } = allowanceData;
-  
-//   return (creche || 0) + (nursery1 || 0) + (nursery2 || 0) + (kg1 || 0) + (kg2 || 0) +
-//          (basic1 || 0) + (basic2 || 0) + (basic3 || 0) + (basic4 || 0) + (basic5 || 0) +
-//          (basic6 || 0) + (basic7General || 0) + (basic8General || 0) + (basic9General || 0);
-// };
-
-// // Validate allowance data
-// export const validateAllowanceData = (allowanceData) => {
-//   const errors = [];
-
-//   if (!allowanceData.weekNumber || allowanceData.weekNumber < 1 || allowanceData.weekNumber > 16) {
-//     errors.push('Week number must be between 1 and 16');
-//   }
-  
-//   if (!allowanceData.numberOfTeachers || allowanceData.numberOfTeachers < 0) {
-//     errors.push('Number of teachers must be a positive number');
-//   }
-  
-//   if (!allowanceData.numberOfJHSTeachers || allowanceData.numberOfJHSTeachers < 0) {
-//     errors.push('Number of JHS teachers must be a positive number');
-//   }
-  
-//   if (!allowanceData.totalSum || allowanceData.totalSum <= 0) {
-//     errors.push('Total sum must be greater than 0');
-//   }
-  
-//   return errors;
-// };
-
-// // Format currency for display
-// export const formatCurrency = (amount) => {
-//   return new Intl.NumberFormat('en-GH', {
-//     style: 'currency',
-//     currency: 'GHS',
-//     minimumFractionDigits: 2
-//   }).format(amount || 0);
-// };
-
-// // Calculate allowance per teacher
-// export const calculateTeacherAllowance = (totalAmount, numberOfTeachers, deductions = 0) => {
-//   if (numberOfTeachers <= 0) return 0;
-//   const netAmount = totalAmount - deductions;
-//   return Math.max(0, netAmount / numberOfTeachers);
-// };

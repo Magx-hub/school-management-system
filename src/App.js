@@ -8,6 +8,7 @@ import Attendance from './pages/Attendance';
 import Calculator from './pages/Calculator';
 import Reports from './pages/Reports';
 import History from './pages/History';
+import Students from './pages/Students';
 
 import { COLORS, SIZES, FONTS, SHADOWS } from './constants/theme';
 
@@ -48,12 +49,12 @@ const Allowance = () => (
   />
 );
 
-const Students = () => (
-  <PlaceholderPage 
-    title="Students Management" 
-    description="Manage student records, class assignments, academic performance tracking, and parent communication."
-  />
-);
+// const Students = () => (
+//   <PlaceholderPage 
+//     title="Students Management" 
+//     description="Manage student records, class assignments, academic performance tracking, and parent communication."
+//   />
+// );
 
 const Canteen = () => (
   <PlaceholderPage 
